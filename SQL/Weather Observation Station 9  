@@ -1,0 +1,15 @@
+Weather Observation Station 9
+
+Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+-- select distinct CITY from STATION where CITY not like 'a%' and CITY not like 'e%' and CITY not like 'i%' and CITY not like 'o%' and CITY not like 'u%';
+
+-- select distinct CITY from STATION where left(CITY, 1) not in ('a','e','i','o','u');
+
+select distinct CITY from STATION where CITY REGEXP '^[^aeiou]';
+	
+	Putting a ^ inside the closed bracket means something completely different than putting it outside the brackets. Putting it inside the brackets makes it match all characters EXCEPT the ones inside the bracket. So instead of writing [bcdfghjklmnpqrstvwxyz], we can write [^aeiou]
+
+	也可以直接在REGEXP前面加not
+

@@ -1,0 +1,9 @@
+Average Population
+
+Query the average population for all cities in CITY, rounded down to the nearest integer.
+
+select round(avg(POPULATION)) from CITY
+select floor(avg(POPULATION)) from CITY
+
+-- floor：函数只返回整数部分，小数部分舍弃；
+-- round：函数四舍五入；

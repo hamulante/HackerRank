@@ -1,0 +1,15 @@
+Weather Observation Station 7
+
+Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
+
+-- select distinct CITY from STATION where CITY not like 'a%' or CITY not like 'e%' or CITY not like 'i%' or CITY not like 'o%' or CITY not like 'u%';
+
+-- select distinct CITY from STATION where right(CITY, 1) in ('a','e','i','o','u');
+
+-- select distinct CITY from STATION where CITY REGEXP '^.*[aeiou]$';
+	^   // start of string
+	[aeiou]   // a single vowel
+	.   // any characted...
+	*   // ...repeated any number of times
+	[aeiou]   // another vowel
+	$   // end of string
