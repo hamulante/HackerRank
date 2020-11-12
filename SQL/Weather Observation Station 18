@@ -1,0 +1,20 @@
+Weather Observation Station 18
+
+Consider P1(a,b) and P2(c,d) to be two points on a 2D plane.
+
+ a happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+ b happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+ c happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+ d happens to equal the maximum value in Western Longitude (LONG_W in STATION).
+Query the Manhattan Distance between points P1 and P2 and round it to a scale of 4 decimal places.
+
+-- 曼哈顿距离：两个点在标准坐标系上的绝对轴距总和
+select min(LAT_N) into @a from STATION;
+select min(LONG_W) into @b from STATION;
+select max(LAT_N) into @c from STATION;
+select max(LONG_W) into @d from STATION;
+select distinct round(abs(@a-@c)+abs(@b-@d),4) from station;
+-- 不用distinct就会每一行执行这个操作，因为限制条件必须写在最大的select语句里
+
+-- 为了避免这个问题，这道题不用变量
+select round(abs(min(lat_n)-max(lat_n))+abs(min(long_w)-max(long_w)),4) from station;
