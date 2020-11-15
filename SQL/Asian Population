@@ -1,0 +1,10 @@
+Asian Population
+
+Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+
+select sum(CITY.POPULATION) from CITY, COUNTRY where CITY.COUNTRYCODE = COUNTRY.CODE and COUNTRY.CONTINENT='Asia'
+-- 多表联合查询需要在from后全部写出来
+-- select的列需要写明来自哪张表
+-- 不写alias也没关系

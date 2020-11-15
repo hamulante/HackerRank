@@ -1,0 +1,17 @@
+Weather Observation Station 20
+
+A median（中位数) is defined as a number separating the higher half of a data set from the lower half. Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to 4 decimal places.
+
+set @N := 0;
+select count(*) from STATION into @TOTAL; -- @TOTAL=总行数
+select
+    round(A.LAT_N, 4)
+from (select @N := @N +1 AS ROW_ID, LAT_N from STATION order by LAT_N) as A
+where
+    case when mod(@TOTAL, 2) = 0 
+            then A.ROW_ID in (@TOTAL/2, (@TOTAL/2+1))
+            else A.ROW_ID = (@TOTAL+1)/2
+    end
+;
+
+-- 再思考一下！
