@@ -3,15 +3,15 @@ Weather Observation Station 20
 A median（中位数) is defined as a number separating the higher half of a data set from the lower half. Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to 4 decimal places.
 
 set @N := 0;
-select count(*) from STATION into @TOTAL; -- @TOTAL=总行数
+select count(*) from STATION into @TOTAL; -- @TOTAL=总行数，测试用例共499行
 select
-    round(A.LAT_N, 4)
-from (select @N := @N +1 AS ROW_ID, LAT_N from STATION order by LAT_N) as A
+    round(A.LAT_N, 4) -- 最后输出了某一行的数据，再round四舍五入一下，重点在A如何找到中位数那一行->where做的限定
+from (select @N := @N +1 AS ROW_ID, LAT_N from STATION order by LAT_N) as A -- 给所有的数据加一个行的编号，order by保证了LAT_N是按顺序排列的
 where
-    case when mod(@TOTAL, 2) = 0 
+    case when mod(@TOTAL, 2) = 0 -- 499/2=249……1
             then A.ROW_ID in (@TOTAL/2, (@TOTAL/2+1))
+            -- 如果mod(@TOTAL, 2) = 0 则@TOTAL是偶数，那么@TOTAL/2和(@TOTAL/2+1)分别是大顶堆和小顶堆的两个堆顶，那么任意一行的数作为中位数都可以
             else A.ROW_ID = (@TOTAL+1)/2
-    end
+            -- 如果mod(@TOTAL, 2) ！= 0 则@TOTAL是奇数，那么(@TOTAL+1)/2=（499+1）/2=250，250行是499行的中间一行
+    end -- 至此找到了中位数的行编号
 ;
-
--- 再思考一下！
